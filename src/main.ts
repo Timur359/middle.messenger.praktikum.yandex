@@ -1,24 +1,51 @@
-import './style.css'
-import typescriptLogo from './typescript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.ts'
+import './style.scss'
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
-  </div>
-`
+import * as Pages from "./pages";
+import { RegisterPartials } from "./utils/RegisterPartials";
+import chats from './assets/mockdata/ChatsList'
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+
+RegisterPartials();
+
+const pagesWithContext: Record<string, [(context?: Record<string, unknown>) => string, object]> = {
+  signin: [Pages.SigninPage, {}],
+  signup: [Pages.SignupPage, {}],
+  main: [Pages.MainPage, {
+    chats,
+  }],
+  profile: [Pages.ProfilePage, {
+    name: "Ivan",
+    edit: false,
+  }],
+  editProfile: [Pages.ProfilePage, {
+    name: "Ivan",
+    edit: true,
+  }],
+  error: [Pages.ErrorPage, {
+    code: "500",
+    description: "Мы уже фиксим",
+  }],
+  notFound: [Pages.ErrorPage, {
+    code: "404",
+    description: "Не туда попали",
+  }],
+};
+
+function navigate(page: string) {
+  const [source, context] = pagesWithContext[page];
+  const container = document.querySelector('#app')!;
+  container.innerHTML = source(context as Record<string, unknown>);
+}
+
+navigate("signin");
+
+document.addEventListener("click", e => {
+  const target = e.target as HTMLButtonElement;
+  const page = target.getAttribute("linkTo");
+  if (page) {
+    navigate(page);
+
+    e.preventDefault();
+    e.stopImmediatePropagation();
+  }
+});
