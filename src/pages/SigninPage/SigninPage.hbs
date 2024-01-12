@@ -1,0 +1,10 @@
+<div class="signin-page">
+  <form class="signin-form" action="">
+    <span class="signin-form__title">Войти</span>
+    {{> FormInput title="Логин" value="Timur" name="signin" validation=""}}
+    {{> FormInput title="Пароль" value="123456" name="password" type="password"}}
+    <br />
+    {{> FormButton title="Авторизоваться" linkTo="main"}}
+    {{> FormButton title="Нет аккаунта?" transparent=true linkTo="signup"}}
+  </form>
+</div>
