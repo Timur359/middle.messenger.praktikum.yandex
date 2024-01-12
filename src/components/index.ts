@@ -1,5 +1,5 @@
 export { FormInput } from "./FormInput";
-export { FormButton } from './FormButton'
+export { FormButton } from './FormButton';
 export { Link } from "./Link";
 export { ChatCard } from "./ChatCard";
 export { MessageInput } from "./MessageInput";
