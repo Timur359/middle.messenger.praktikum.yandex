@@ -1,3 +1,5 @@
+@import "../../styles/vars.scss";
+
 .profile-field {
   display: flex;
   justify-content: space-between;
@@ -14,7 +16,7 @@
   }
 
   &__input {
-    color: #999;
+    color: $main_gray;
     display: inline-block;
     font-size: 1rem;
     font-style: normal;
@@ -25,7 +27,7 @@
       border: none;
       outline: none;
       background: transparent;
-      color: #999;
+      color: $main_gray;
       text-align: right;
     }
   }
@@ -36,7 +38,7 @@
     bottom: 0.7rem;
     left: 0;
     height: 1px;
-    border-bottom: 1px solid #EAEAEA;
+    border-bottom: 1px solid #eaeaea;
     width: 100%;
   }
 }

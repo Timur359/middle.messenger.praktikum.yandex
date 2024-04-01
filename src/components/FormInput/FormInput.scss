@@ -1,17 +1,19 @@
+@import "../../styles/vars.scss";
+
 .form-input {
   position: relative;
   width: 100%;
 
   hr {
     border: none;
-    border-bottom: 1px solid #3369F3;
+    border-bottom: 1px solid $main_color;
     width: 100%;
     margin: 0;
     margin-top: -5px;
   }
 
   &__title {
-    color: #999;
+    color: $main_gray;
     font-style: normal;
     font-weight: 500;
     font-size: 0.8rem;
@@ -23,7 +25,7 @@
     position: relative;
     outline: none;
     border: none;
-    color: #1E1E1E;
+    color: $main_black;
     font-style: normal;
     font-weight: 500;
     background-color: transparent;
@@ -32,7 +34,7 @@
   }
 
   &__validation {
-    color: #FF2F2F;
+    color: #ff2f2f;
     font-size: 0.8rem;
     font-style: normal;
     font-weight: 400;

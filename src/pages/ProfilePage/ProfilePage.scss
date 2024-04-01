@@ -1,8 +1,10 @@
+@import "../../styles/vars.scss";
+
 .profile-page {
   display: flex;
   height: 100%;
   width: 100%;
-  color: #1E1E1E;
+  color: $main_black;
 
   .profile-page__backward {
     display: flex;
@@ -10,8 +12,8 @@
     justify-content: center;
     align-items: center;
     width: 100px;
-    background-color: #FBFBFB;
-    border-right: 1px solid #EAEAEA;
+    background-color: #fbfbfb;
+    border-right: 1px solid #eaeaea;
   }
 
   .profile-page__content {
@@ -21,8 +23,8 @@
     justify-content: center;
     align-items: center;
     row-gap: 2rem;
-    background-color: #FFFFFF;
-   
+    background-color: $main_background_for_auth;
+
     .profile-avatar {
       background-image: url("../../assets/icons/avatarPlaceholder.svg");
       width: 130px;

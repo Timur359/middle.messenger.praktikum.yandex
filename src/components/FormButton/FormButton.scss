@@ -1,3 +1,5 @@
+@import "../../styles/vars.scss";
+
 %form-utton {
   font-family: consolas;
   font-size: 1rem;
@@ -9,14 +11,13 @@
 }
 
 .form-button {
-
   @extend %form-utton;
   border-radius: 8px;
-  background: #3369F3;
+  background: $main_color;
 
   &_transparent {
     @extend %form-utton;
     background: transparent;
-    color: #3369F3;
+    color: $main_color;
   }
 }

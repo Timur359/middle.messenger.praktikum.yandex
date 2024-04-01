@@ -1,3 +1,5 @@
+@import "../../styles/vars.scss";
+
 .main {
   display: grid;
   grid-template-columns: 1fr 2fr;
@@ -15,8 +17,8 @@
   flex-direction: column;
   flex: 1 1;
 
-  background: #FBFBFB;
-  border-right: 1px solid #EAEAEA;
+  background: #fbfbfb;
+  border-right: 1px solid #eaeaea;
   padding: 0 10px;
 }
 
@@ -24,5 +26,5 @@
   display: flex;
   flex-direction: column;
   flex: 1 1;
-  background: #ffffff;
+  background: $main_background_for_auth;
 }

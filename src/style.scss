@@ -1,6 +1,7 @@
 @import "./styles/flex.scss";
 @import "./styles/common.scss";
 @import "./styles/icons.scss";
+@import "./styles/vars.scss";
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -9,7 +10,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #ffffff;
+  background-color: $main_background_for_auth;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -20,6 +21,11 @@
 
 html {
   margin: 0;
+  height: 100%;
+  width: 100%;
+}
+
+main {
   height: 100%;
   width: 100%;
 }

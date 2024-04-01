@@ -1,3 +1,5 @@
+@import "../../styles/vars.scss";
+
 .chat-card {
   display: flex;
   position: relative;
@@ -6,11 +8,11 @@
   cursor: pointer;
 
   &:first-child {
-    border-top: 1px solid #EAEAEA;
+    border-top: 1px solid #eaeaea;
   }
 
   &:not(:last-child) {
-    border-bottom: 1px solid #EAEAEA;
+    border-bottom: 1px solid #eaeaea;
   }
 
   &__photo {
@@ -28,14 +30,14 @@
 
   &__contact-name {
     display: flex;
-    color: #1E1E1E;
+    color: $main_black;
     font-style: normal;
     font-weight: 600;
   }
 
   &__last-message-time {
     display: flex;
-    color: #999;
+    color: $main_gray;
     text-align: right;
     font-size: 0.8rem;
     font-style: normal;
@@ -49,13 +51,13 @@
 
     display: -webkit-box;
     -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;  
+    -webkit-box-orient: vertical;
     overflow: hidden;
   }
 
   &__new-messages-count {
     position: absolute;
-    background-color: #3369F3;
+    background-color: $main_color;
     color: rgb(255, 255, 255);
     border-radius: 1rem;
     height: 20px;

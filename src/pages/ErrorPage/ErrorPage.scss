@@ -1,12 +1,14 @@
+@import "../../styles/vars.scss";
+
 .error-page {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #FFFFFF;
+  background-color: $main_background_for_auth;
   height: 100%;
   width: 100%;
-  color: #1E1E1E;
+  color: $main_black;
   text-align: center;
   font-weight: 500;
 
