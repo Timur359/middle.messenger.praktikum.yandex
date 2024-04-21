@@ -1,0 +1,33 @@
+@import "../../styles/vars.scss";
+
+.signup-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: $main_background_for_auth;
+  height: 100%;
+  width: 100%;
+
+  .signup-form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+
+    border-radius: 12px;
+    background: $main_background_for_auth;
+    box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.14);
+    padding: 3rem;
+
+    &__title {
+      margin-bottom: 2rem;
+      cursor: default;
+      color: $main_black;
+      text-align: center;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 20px;
+    }
+  }
+}

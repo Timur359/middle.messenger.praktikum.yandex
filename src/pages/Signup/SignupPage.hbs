@@ -1,0 +1,15 @@
+<div class="signup-page">
+  <form class="signup-form" action="">
+    <span class="signup-form__title">Регистрация</span>
+    {{> FormInput title="Почта" value="test@yandex.ru" name="email" validation="" }}
+    {{> FormInput title="Логин" value="ivanivanov" name="signin" }}
+    {{> FormInput title="Имя" value="Ivan" name="first_name" }}
+    {{> FormInput title="Фамилия" value="Ivanov" name="second_name" }}
+    {{> FormInput title="Телефон" type="tel" name="phone" value="+7 (909) 967 30 30" }}
+    {{> FormInput title="Пароль" type="password" name="password" value="123456" }}
+    {{> FormInput title="Пароль (еще раз)" type="password" name="password" value="1234" validation="Пароли не совпадают"}}
+    <br>
+    {{> FormButton title="Зарегистрироваться" linkTo="signin"}}
+    {{> FormButton title="Войти" transparent=true}}
+  </form>
+</div>

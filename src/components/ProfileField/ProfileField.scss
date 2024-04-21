@@ -1,0 +1,44 @@
+@import "../../styles/vars.scss";
+
+.profile-field {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  line-height: 1rem;
+  padding: 1rem 0.5rem;
+  cursor: default;
+
+  &__label {
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1rem;
+  }
+
+  &__input {
+    color: $main_gray;
+    display: inline-block;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1rem;
+
+    input {
+      border: none;
+      outline: none;
+      background: transparent;
+      color: $main_gray;
+      text-align: right;
+    }
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0.7rem;
+    left: 0;
+    height: 1px;
+    border-bottom: 1px solid #eaeaea;
+    width: 100%;
+  }
+}
