@@ -1,6 +1,6 @@
 ### Ссылка на проект в Netlify
 
-https://jazzy-tulumba-37c6ab.netlify.app/
+https://chats967.netlify.app/
 
 ### Установка и запуск проекта
 
