@@ -1,10 +1,10 @@
-@import "../../styles/vars.scss";
+@import "../../styles/vars";
 
 .profile-page {
   display: flex;
   height: 100%;
   width: 100%;
-  color: $main_black;
+  color: $main-black;
 
   .profile-page__backward {
     display: flex;
@@ -23,7 +23,7 @@
     justify-content: center;
     align-items: center;
     row-gap: 2rem;
-    background-color: $main_background_for_auth;
+    background-color: $main-background-for-auth;
 
     .profile-avatar {
       background-image: url("../../assets/icons/avatarPlaceholder.svg");

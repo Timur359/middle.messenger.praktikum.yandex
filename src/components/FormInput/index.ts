@@ -1,2 +1,2 @@
-import "./FormInput.scss"
-export { default as FormInput } from "./FormInput.hbs"
+import "./FormInput.scss";
+export { FormInput } from "./FormInput";

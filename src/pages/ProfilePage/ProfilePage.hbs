@@ -6,20 +6,66 @@
     <div class="profile-avatar"></div>
     <div class="profile-name">{{name}}</div>
     <form class="profile-form" action="">
-      {{> ProfileField label="Почта" name="email" value="middle@ya.ru"}}
-      {{> ProfileField label="Логин" name="signin" value="IVAN"}}
-      {{> ProfileField label="Имя" name="first_name" value="Ivan"}}
-      {{> ProfileField label="Фамилия" name="second_name" value="Ivanov"}}
-      {{> ProfileField label="Имя в чате" name="display_name" value="IVAN"}}
-      {{> ProfileField label="Телефон" name="phone" type="tel" value="+7(777)-777-77-77"}}
-      <br>
+      {{{ProfileField
+        label="Почта"
+        name="email"
+        ref="email"
+        value="timur96@ya.ru"
+        edit=edit
+        validateFn=validateFunc.email
+      }}}
+      {{{ProfileField
+        label="Логин"
+        name="signin"
+        ref="signin"
+        value="Timka"
+        edit=edit
+        validateFn=validateFunc.login
+      }}}
+      {{{ProfileField
+        label="Имя"
+        name="first_name"
+        ref="first_name"
+        value="Ivan"
+        edit=edit
+        validateFn=validateFunc.name
+      }}}
+      {{{ProfileField
+        label="Фамилия"
+        name="second_name"
+        ref="second_name"
+        value="Ivanov"
+        edit=edit
+        validateFn=validateFunc.name
+      }}}
+      {{{ProfileField
+        label="Имя в чате"
+        name="display_name"
+        ref="display_name"
+        value="Timur123"
+        edit=edit
+      }}}
+      {{{ProfileField
+        label="Телефон"
+        name="phone"
+        ref="phone"
+        type="tel"
+        value="+7(777)-777-77-77"
+        edit=edit
+        validateFn=validateFunc.phone
+      }}}
+      <br />
       <div class="profile-form__actions">
         {{#if edit}}
-        {{> FormButton title="Сохранить" linkTo="main"}}
+          {{{FormButton title="Сохранить" linkTo="profile" onClick=onSave}}}
         {{else}}
-        {{> FormButton title="Изменить данные" transparent=true linkTo="editProfile"}}
-        {{> FormButton title="Изменить пароль" transparent=true}}
-        {{> FormButton title="Выйти" transparent=true}}
+          {{{FormButton
+            title="Изменить данные"
+            transparent=true
+            linkTo="editProfile"
+          }}}
+          {{{FormButton title="Изменить пароль" transparent=true}}}
+          {{{FormButton title="Выйти" transparent=true}}}
         {{/if}}
       </div>
     </form>

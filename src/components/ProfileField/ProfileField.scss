@@ -1,4 +1,4 @@
-@import "../../styles/vars.scss";
+@import "../../styles/vars";
 
 .profile-field {
   display: flex;
@@ -16,7 +16,7 @@
   }
 
   &__input {
-    color: $main_gray;
+    color: $main-gray;
     display: inline-block;
     font-size: 1rem;
     font-style: normal;
@@ -27,7 +27,7 @@
       border: none;
       outline: none;
       background: transparent;
-      color: $main_gray;
+      color: $main-gray;
       text-align: right;
     }
   }

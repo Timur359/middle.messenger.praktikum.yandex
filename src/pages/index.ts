@@ -1,5 +1,5 @@
 export { SigninPage } from "./SigninPage";
-export { SignupPage } from "./Signup";
+export { SignupPage } from "./SignupPage";
 export { MainPage } from "./MainPage";
 export { ProfilePage } from "./ProfilePage";
 export { ErrorPage } from "./ErrorPage";

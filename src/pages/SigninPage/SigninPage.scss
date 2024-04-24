@@ -1,10 +1,10 @@
-@import "../../styles/vars.scss";
+@import "../../styles/vars";
 
 .signin-page {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: $main_background_for_auth;
+  background-color: $main-background-for-auth;
   height: 100%;
   width: 100%;
 
@@ -13,17 +13,17 @@
     flex-direction: column;
     row-gap: 1rem;
     border-radius: 12px;
-    background: $main_background_for_auth;
-    box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.14);
-    padding: 50px 30px 30px 30px;
+    background: $main-background-for-auth;
+    box-shadow: 0 0 6px 0 rgb(0 0 0 / 14%);
+    padding: 50px 30px 30px;
     max-width: 340px;
     max-height: 450px;
     box-sizing: border-box;
-    align-items: center;
+    max-width: min-content;
 
     &__title {
       margin-bottom: 2rem;
-      color: $main_black;
+      color: $main-black;
       text-align: center;
       font-size: 20px;
       font-style: normal;
