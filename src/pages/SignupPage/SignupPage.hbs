@@ -1,0 +1,60 @@
+<div class="signup-page">
+  <form class="signup-form" action="">
+    <span class="signup-form__title">Регистрация</span>
+    {{{FormInput
+      title="Почта"
+      value="test@yandex.ru"
+      name="email"
+      ref="email"
+      validateFn=validateFunc.email
+    }}}
+    {{{FormInput
+      title="Логин"
+      value="ivanivanov"
+      name="signin"
+      ref="signin"
+      validateFn=validateFunc.login
+    }}}
+    {{{FormInput
+      title="Имя"
+      value="Ivan"
+      name="first_name"
+      ref="first_name"
+      validateFn=validateFunc.name
+    }}}
+    {{{FormInput
+      title="Фамилия"
+      value="Ivanov"
+      name="second_name"
+      ref="second_name"
+      validateFn=validateFunc.name
+    }}}
+    {{{FormInput
+      title="Телефон"
+      type="tel"
+      name="phone"
+      ref="phone"
+      value="+7 (909) 967 30 30"
+      validateFn=validateFunc.phone
+    }}}
+    {{{FormInput
+      title="Пароль"
+      type="password"
+      name="password"
+      ref="password"
+      value="123456"
+      validateFn=validateFunc.password
+    }}}
+    {{{FormInput
+      title="Пароль (еще раз)"
+      type="password"
+      name="password"
+      ref="password2"
+      value="123456"
+      validateFn=validateFunc.password
+    }}}
+    <br />
+    {{{FormButton title="Зарегистрироваться" linkTo="signin" onClick=onSignup}}}
+    {{{FormButton title="Войти" transparent=true}}}
+  </form>
+</div>

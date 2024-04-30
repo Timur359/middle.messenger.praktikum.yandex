@@ -1,10 +1,12 @@
 export { FormInput } from "./FormInput";
-export { FormButton } from './FormButton';
+export { FormButton } from "./FormButton";
 export { Link } from "./Link";
 export { ChatCard } from "./ChatCard";
 export { MessageInput } from "./MessageInput";
 export { MessageCard } from "./MessageCard";
 export { MessagesList } from "./MessagesList";
-export { ChatsList } from "./СhatsList";
+export { ChatsList } from "./ChatsList";
 export { SearchInput } from "./SearchInput";
 export { ProfileField } from "./ProfileField";
+export { InputValidation } from "./InputValidation";
+export { SimpleInput } from "./SimpleInput";

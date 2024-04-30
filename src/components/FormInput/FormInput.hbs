@@ -1,9 +1,13 @@
-<div class="form-input">
-  <label class="form-input__title">
-    <input class="form-input__input" value={{value}} type="{{#if type}}"{{type}}{{else}}"text"{{/if}} name={{name}} />
-  </label>
-  <hr>
-  {{#if validation}}
-  <div class="form-input__validation">{{validation}}</div>
-  {{/if}}
+<div class="form-input" tabindex="0">
+  <div class="form-input__title">{{title}}</div>
+  {{{SimpleInput
+    className="form-input__input"
+    value=value
+    type=type
+    name=name
+    ref="input"
+    onBlur=onBlur
+  }}}
+  <hr />
+  {{{InputValidation ref="inputValidation" validateStr=""}}}
 </div>

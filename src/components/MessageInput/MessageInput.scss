@@ -1,15 +1,14 @@
-@import "../../styles/vars.scss";
+@import "../../styles/vars";
 
 .message-input {
   outline: none;
   border: none;
-  background-color: $main_background;
-  color: $main_black;
+  background-color: $main-background;
+  color: $main-black;
   border-radius: 10px;
   width: 100%;
   line-height: 1.2rem;
   font-size: 1rem;
-
   resize: none;
   overflow: hidden;
 }

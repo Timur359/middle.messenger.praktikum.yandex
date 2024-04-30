@@ -4,14 +4,14 @@
   </div>
   <div class="chat-card__info">
     <div class="d-flex alignItems-baseline justifyContent-spaceBetween">
-      <div class="chat-card__contact-name">{{name}}</div>
-      <div class="chat-card__last-message-time">{{time}}</div>
+      <div class="chat-card__contact-name">{{chat.title}}</div>
+      <div class="chat-card__last-message-time">{{chat.last_message.time}}</div>
     </div>
-    <div class="chat-card__last-message-text">{{#each this.messages}}{{#if
-          @last
-        }}{{this.content}}{{/if}}{{/each}}</div>
-    {{#if messagesCount}}
-      <div class="chat-card__new-messages-count">{{messagesCount}}</div>
+    <div
+      class="chat-card__last-message-text"
+    >{{chat.last_message.content}}</div>
+    {{#if chat.unread_count}}
+      <div class="chat-card__new-messages-count">{{chat.unread_count}}</div>
     {{/if}}
   </div>
 </div>

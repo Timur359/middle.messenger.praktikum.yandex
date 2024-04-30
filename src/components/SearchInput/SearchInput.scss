@@ -1,4 +1,4 @@
-@import "../../styles/vars.scss";
+@import "../../styles/vars";
 
 .search-input {
   position: relative;
@@ -10,7 +10,7 @@
   &:has(.search-input__input)::after {
     content: url("../../assets/icons/search.svg");
     height: 20px;
-    color: $main_gray;
+    color: $main-gray;
     position: absolute;
     left: 7%;
     top: 50%;
@@ -20,13 +20,13 @@
   .search-input__input {
     outline: none;
     border: none;
-    color: $main_gray;
-    background-color: $main_background;
+    color: $main-gray;
+    background-color: $main-background;
     border-radius: 5px;
     width: 100%;
     line-height: 1.5rem;
     font-size: 1rem;
     text-align: left;
-    padding-left: 35px;
+    padding-left: 55px;
   }
 }
