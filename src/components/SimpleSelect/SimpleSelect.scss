@@ -1,10 +1,11 @@
-@use "@styles/vars.scss" as v;
+@import '@styles/vars';
+;
 
 .simple-select {
-  border: 1px solid v.$c-light-gray;
+  border: 1px solid $c-light-gray;
   width: 100%;
   height: 2rem;
   outline: none;
-  background-color: v.$c-white;
-  color: v.$main-black;
+  background-color: $c-white;
+  color: $main-black;
 }

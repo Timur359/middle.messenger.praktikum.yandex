@@ -1,10 +1,11 @@
-@use "@styles/vars.scss" as v;
+@import '@styles/vars';
+;
 
 .text-area {
   outline: none;
   border: none;
-  background-color: v.$c-light-gray;
-  color: v.$c-title;
+  background-color: $c-light-gray;
+  color: $c-title;
   border-radius: 10px;
   width: 100%;
   line-height: 1.2rem;

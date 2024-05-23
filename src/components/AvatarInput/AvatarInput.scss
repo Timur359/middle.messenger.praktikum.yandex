@@ -1,4 +1,5 @@
-@use "@styles/vars.scss" as v;
+@import '@styles/vars';
+;
 
 %avatar {
   display: flex;
@@ -18,8 +19,8 @@
 
     text-align: center;
     opacity: 0;
-    background-color: v.$c-gray-half;
-    color: v.$c-white;
+    background-color: $c-gray-half;
+    color: $c-white;
     font-weight: 500;
 
     &:hover {
