@@ -5,4 +5,5 @@ export interface UserModel {
   email: string;
   login: string;
   phone: string;
+  id: number;
 }

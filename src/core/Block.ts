@@ -3,13 +3,17 @@ import { v4 as makeUUID } from "uuid";
 
 import EventBus, { Listener } from "./EventBus";
 
-type BlockPropsType = Record<string, unknown | Block<BlockPropsType>> & {
+export type RefType = {
+  [key: string]: Block<BlockPropsType>;
+};
+
+export type BlockPropsType = Record<string, unknown | Block<BlockPropsType>> & {
   events?: Record<string, () => void>;
 } & object;
 
 type RootChildren = {
   component: Block<BlockPropsType>;
-  embed(fragment: DocumentFragment): void;
+  embed(fragment: DocumentFragment, isMounted: boolean): void;
 };
 
 type ContextAndStubsType = BlockPropsType & { __refs: BlockPropsType } & {
@@ -17,7 +21,10 @@ type ContextAndStubsType = BlockPropsType & { __refs: BlockPropsType } & {
 };
 
 // Нельзя создавать экземпляр данного класса
-export class Block<Tprops extends BlockPropsType = BlockPropsType> {
+export class Block<
+  Tprops extends BlockPropsType = BlockPropsType,
+  Trefs extends RefType = RefType
+> {
   static EVENTS = {
     INIT: "init",
     /** ComponentDidMount */
@@ -26,21 +33,24 @@ export class Block<Tprops extends BlockPropsType = BlockPropsType> {
     FLOW_CDU: "flow:component-did-update",
     /** Render */
     FLOW_RENDER: "flow:render",
+    /** ComponentWillUnmount */
+    FLOW_CWU: "flow:component-will-unmount",
   };
 
   public id = makeUUID();
   protected props: Tprops;
-  protected refs: Record<string, Block> = {};
-  public children: BlockPropsType;
+  protected refs: Trefs = {} as Trefs;
+  public children: Block[] = [];
   private eventBus: () => EventBus;
   protected _element: HTMLElement | null = null;
+  private _isMounted: boolean = false;
+  private _prevProps: Tprops = {} as Tprops;
 
   constructor(propsWithChildren: Tprops = {} as Tprops) {
     const eventBus = new EventBus();
 
-    const { props, children } = this._getChildrenAndProps(propsWithChildren);
+    const { props } = this._getChildrenAndProps(propsWithChildren);
 
-    this.children = children as BlockPropsType;
     this.props = this._makePropsProxy(props) as Tprops;
 
     this.eventBus = () => eventBus;
@@ -90,6 +100,7 @@ export class Block<Tprops extends BlockPropsType = BlockPropsType> {
       Block.EVENTS.FLOW_CDU,
       this._componentDidUpdate.bind(this) as Listener<unknown[]>
     );
+    eventBus.on(Block.EVENTS.FLOW_CWU, this._componentWillUnmount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
   }
 
@@ -101,28 +112,51 @@ export class Block<Tprops extends BlockPropsType = BlockPropsType> {
 
   protected init() {}
 
+  // #region CDU
+  public dispatchComponentDidUpdate() {
+    this.eventBus().emit(Block.EVENTS.FLOW_CDU);
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  componentDidUpdate(_oldProps: Tprops, _newProps: Tprops) {}
+
+  private _componentDidUpdate(oldProps: Tprops, newProps: Tprops) {
+    if (this.componentShouldUpdate(oldProps, newProps)) {
+      this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
+      if (this._isMounted) {
+        this.componentDidUpdate(oldProps, newProps);
+      }
+    }
+  }
+  // #endregion CDU
+
+  // #region CDM
+  public dispatchComponentDidMount() {
+    this.eventBus().emit(Block.EVENTS.FLOW_CDM);
+  }
+
   _componentDidMount() {
+    this._isMounted = true;
     this.componentDidMount();
   }
 
   componentDidMount() {}
+  // #endregion CDM
 
-  public dispatchComponentDidMount() {
-    this.eventBus().emit(Block.EVENTS.FLOW_CDM);
-
+  // #region CWU
+  public dispatchComponentWillUnmount() {
+    this.eventBus().emit(Block.EVENTS.FLOW_CWU);
     Object.values(this.children).forEach((child) =>
-      (child as Block).dispatchComponentDidMount()
+      (child as Block).dispatchComponentWillUnmount()
     );
   }
 
-  private _componentDidUpdate(
-    oldProps: BlockPropsType,
-    newProps: BlockPropsType
-  ) {
-    if (this.componentShouldUpdate(oldProps, newProps)) {
-      this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
-    }
+  _componentWillUnmount() {
+    this.componentWillUnmount();
   }
+
+  componentWillUnmount() {}
+  // #endregion CWU
 
   protected componentShouldUpdate(
     oldProps: Record<string, unknown>,
@@ -173,9 +207,13 @@ export class Block<Tprops extends BlockPropsType = BlockPropsType> {
 
     temp.innerHTML = html;
 
+    if (contextAndStubs.__children?.length) {
+      this.children = contextAndStubs.__children.map((x) => x.component);
+    }
+
     contextAndStubs.__children?.forEach(
       ({ embed }: Pick<RootChildren, "embed">) => {
-        embed(temp.content);
+        embed(temp.content, this._isMounted);
       }
     );
 
@@ -186,7 +224,22 @@ export class Block<Tprops extends BlockPropsType = BlockPropsType> {
     return () => "";
   }
 
-  getContent() {
+  getContent(isMounted?: boolean) {
+    // Хак, чтобы вызвать CDM только после добавления в DOM
+    if (this.element?.parentNode?.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
+      setTimeout(() => {
+        if (
+          this.element?.parentNode?.nodeType !== Node.DOCUMENT_FRAGMENT_NODE
+        ) {
+          if (isMounted) {
+            this.componentDidUpdate(this._prevProps, this.props);
+          } else {
+            this.dispatchComponentDidMount();
+          }
+        }
+      }, 100);
+    }
+
     return this.element;
   }
 
@@ -201,6 +254,7 @@ export class Block<Tprops extends BlockPropsType = BlockPropsType> {
 
         target[prop] = value;
 
+        this._prevProps = oldTarget as Tprops;
         this.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);
         return true;
       },
@@ -210,13 +264,8 @@ export class Block<Tprops extends BlockPropsType = BlockPropsType> {
     });
   };
 
-  _createDocumentElement(tagName: string) {
-    // Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
-    return document.createElement(tagName);
-  }
-
   show() {
-    this.getContent()!.style.display = "block";
+    this.getContent()!.style.display = "revert-layer";
   }
 
   hide() {

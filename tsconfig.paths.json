@@ -11,7 +11,9 @@
       "@Pages": ["src/pages"],
       "@Core": ["src/core"],
       "@Core/*": ["src/core/*"],
-      "@styles": ["src/styles"]
+      "@styles": ["src/styles"],
+      "@app/*": ["src/*"],
+      "@modals/*": ["src/modals/*"]
     }
   }
 }

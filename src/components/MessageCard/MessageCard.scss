@@ -1,3 +1,5 @@
+@import '@styles/vars.scss';
+
 .message-card {
   display: block;
   flex-direction: column;
@@ -5,14 +7,24 @@
   border-radius: 5px;
   padding: 0.5rem;
   max-width: 70%;
+  box-shadow: 0 0 6px 0 rgb(0 0 0 / 14%);
 
-  &_my {
+  &_mine {
     align-self: flex-end;
-    background-color: #E4EDFD;
+    background-color: $c-card-my;
   }
 
   &_his {
     align-self: flex-start;
-    background-color: #F8F8F8;
+    background-color: $c-card-his;
+  }
+
+  &__user-name {
+    color: $main-gray;
+  }
+
+  &__time {
+    font-size: 10px;
+    color: $main-gray;
   }
 }
