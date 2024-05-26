@@ -1,4 +1,4 @@
-export const validateFunc = {
+export const ValidateFunc = {
   /** И для поля first_name, и для поля second_name */
   name: (value: string) => {
     const regex = /^[A-Za-zА-ЯЁ][a-zA-ZА-ЯЁё-]*$/m;

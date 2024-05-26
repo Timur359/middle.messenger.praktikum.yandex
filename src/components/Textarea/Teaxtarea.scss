@@ -1,0 +1,16 @@
+@import '@styles/vars';
+;
+
+.text-area {
+  outline: none;
+  border: none;
+  background-color: $c-light-gray;
+  color: $c-title;
+  border-radius: 10px;
+  width: 100%;
+  line-height: 1.2rem;
+  font-size: 1rem;
+  resize: none;
+  overflow: hidden;
+  padding: 5px;
+}

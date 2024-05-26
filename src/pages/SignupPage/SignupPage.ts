@@ -1,16 +1,30 @@
-import { validateFunc } from "@utils/ValidateFunc";
 import { Block } from "@Core";
-import { FormInput } from "@components";
-import { FormDataLogger } from "@utils/FormDataLogger";
+import { ValidateFunc } from "@utils/ValidateFunc";
+import { FormInput } from "@components/FormInput";
+import { GetRefsInputsValues } from "@utils/GetRefsInputsValues";
+import { UserSignUpModel } from "@models/UserSignUpModel";
+import { AuthController } from "@app/controllers/AuthController";
+import { Router } from "@app/appRouting";
+import { ApiErrorHandler } from "@utils/ApiErrorHandler";
 
 import SignupPageHbs from "./SignupPage.hbs";
 
 export class SignupPage extends Block {
   constructor() {
     super({
-      validateFunc,
-      onSignup: (e: MouseEvent) =>
-        FormDataLogger(this.refs as Record<string, FormInput>, e),
+      ValidateFunc,
+      signUpHandler: () => {
+        const formValues = GetRefsInputsValues(
+          this.refs as Record<keyof UserSignUpModel, FormInput>
+        );
+        if (Object.values(formValues).some((x) => !x)) {
+          return null;
+        }
+        AuthController.signUp(formValues).catch(ApiErrorHandler);
+      },
+      lognHandler() {
+        Router.go("/");
+      },
     });
   }
 

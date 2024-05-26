@@ -1,0 +1,17 @@
+@import '@styles/vars';
+;
+
+.modal-close-button {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  background: transparent;
+  outline: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+
+  &__cross {
+    color: $main-gray;
+  }
+}

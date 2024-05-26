@@ -1,20 +1,53 @@
-import { validateFunc } from "@utils/ValidateFunc";
+import { Router } from "@app/appRouting";
 import { Block } from "@Core";
-import { FormInput } from "@components";
-import { FormDataLogger } from "@utils/FormDataLogger";
+import { ValidateFunc } from "@utils/ValidateFunc";
+import { FormInput } from "@components/FormInput";
+import { AuthController } from "@app/controllers/AuthController";
+import { GetRefsInputsValues } from "@utils/GetRefsInputsValues";
+import { connect } from "@Core/connect";
+import { AppStore } from "@Core/AppStore";
+import { ApiErrorHandler } from "@utils/ApiErrorHandler";
 
 import SigninPageHbs from "./SigninPage.hbs";
 
-export class SigninPage extends Block {
+type SigninPageInputs = {
+  login: string;
+  password: string;
+};
+
+/** Страница входа в учетную запись */
+class SigninPage extends Block {
   constructor() {
     super({
-      validateFunc,
-      onSignin: (e: MouseEvent) =>
-        FormDataLogger(this.refs as Record<string, FormInput>, e),
+      ValidateFunc,
+      noAccountHandler: () => {
+        Router.go("/signup");
+      },
+      loginHandler: () => {
+        const formValues = GetRefsInputsValues(
+          this.refs as Record<keyof SigninPageInputs, FormInput>
+        );
+        if (Object.values(formValues).some((x) => !x)) {
+          return null;
+        }
+        AuthController.signIn(formValues.login, formValues.password)
+          .then(() => {
+            AuthController.getUserInfo();
+            Router.go("/messenger");
+          })
+          .catch(ApiErrorHandler);
+      },
     });
+  }
+
+  componentDidMount(): void {
+    AppStore.clear();
   }
 
   protected render() {
     return SigninPageHbs;
   }
 }
+
+const instance = connect(({ chats, user }) => ({ chats, user }))(SigninPage);
+export { instance as SigninPage };

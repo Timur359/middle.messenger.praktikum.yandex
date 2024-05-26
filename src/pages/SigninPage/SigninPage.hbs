@@ -3,21 +3,23 @@
     <span class="signin-form__title">Войти</span>
     {{{FormInput
       title="Логин"
-      value="Timur"
-      name="signin"
-      ref="signin"
-      validateFn=validateFunc.login
+      name="login"
+      ref="login"
+      validateFn=ValidateFunc.login
     }}}
     {{{FormInput
       title="Пароль"
-      value="123456"
       name="password"
       ref="password"
-      type="password"
-      validateFn=validateFunc.password
+      type="text"
+      validateFn=ValidateFunc.password
     }}}
     <br />
-    {{{FormButton title="Авторизоваться" linkTo="main" onClick=onSignin}}}
-    {{{FormButton title="Нет аккаунта?" transparent=true linkTo="signup"}}}
+    {{{FormButton title="Авторизоваться" onClick=loginHandler}}}
+    {{{FormButton
+      title="Нет аккаунта?"
+      transparent=true
+      onClick=noAccountHandler
+    }}}
   </form>
 </div>

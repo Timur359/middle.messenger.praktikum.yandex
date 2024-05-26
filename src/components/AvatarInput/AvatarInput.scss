@@ -1,0 +1,30 @@
+@import '@styles/vars';
+;
+
+%avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 130px;
+  height: 130px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.avatar-input {
+  @extend %avatar;
+
+  &__hint-container {
+    @extend %avatar;
+
+    text-align: center;
+    opacity: 0;
+    background-color: $c-gray-half;
+    color: $c-white;
+    font-weight: 500;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}

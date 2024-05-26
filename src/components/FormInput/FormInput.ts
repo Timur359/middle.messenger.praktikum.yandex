@@ -1,9 +1,9 @@
 import { Block } from "@Core";
+import { Indexed } from "@app/types/Indexed";
 
 import FormInputHbs from "./FormInput.hbs";
 
-interface IFormInputProps {
-  [key: string]: unknown;
+interface IFormInputProps extends Indexed {
   validateFn: (value: string) => boolean;
 }
 
@@ -16,8 +16,7 @@ export class FormInput extends Block<IFormInputProps> {
   }
 
   private get inputValue() {
-    return ((this.refs.input as FormInput)?._element as HTMLInputElement)
-      ?.value;
+    return ((this.refs.input as FormInput)?._element as HTMLInputElement)?.value;
   }
 
   private validate() {
