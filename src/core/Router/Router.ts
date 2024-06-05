@@ -1,5 +1,8 @@
 /* eslint-disable no-use-before-define */
-import { Block, Route } from "@Core";
+// eslint-disable-next-line no-restricted-imports
+import { Route } from "../Route";
+// eslint-disable-next-line no-restricted-imports
+import { Block } from "../Block";
 
 export class Router {
   static __instance: Router;
