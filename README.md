@@ -16,6 +16,15 @@ https://chats967.netlify.app/
 - запуск Express на http://localhost:3000:  
   npm run start
 
+- превью проекта: 
+  npm run preview
+
+- запуск тестов: 
+  npm run test
+
+- запуск линтеров и тестов: 
+  npm run precommit
+
 ### Навигация в приложении
 / — страница входа (авторизация) 
 /signup — страница регистрации  

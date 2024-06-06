@@ -4,27 +4,21 @@ import { v4 as makeUUID } from "uuid";
 import EventBus, { Listener } from "./EventBus";
 
 export type RefType = {
-  [key: string]: Block<BlockPropsType>;
-};
+  [key: string]: Block<BlockPropsType>
+}
 
-export type BlockPropsType = Record<string, unknown | Block<BlockPropsType>> & {
-  events?: Record<string, () => void>;
-} & object;
+export type BlockPropsType = Record<string, unknown | Block<BlockPropsType>> &
+{ events?: Record<string, () => void> } & object;
 
 type RootChildren = {
-  component: Block<BlockPropsType>;
-  embed(fragment: DocumentFragment, isMounted: boolean): void;
-};
+  component: Block<BlockPropsType>,
+  embed (fragment: DocumentFragment, isMounted: boolean): void;
+}
 
-type ContextAndStubsType = BlockPropsType & { __refs: BlockPropsType } & {
-  __children?: RootChildren[];
-};
+type ContextAndStubsType = BlockPropsType & { "__refs": BlockPropsType } & { "__children"?: RootChildren[] };
 
 // Нельзя создавать экземпляр данного класса
-export class Block<
-  Tprops extends BlockPropsType = BlockPropsType,
-  Trefs extends RefType = RefType
-> {
+export class Block<Tprops extends BlockPropsType = BlockPropsType, Trefs extends RefType = RefType> {
   static EVENTS = {
     INIT: "init",
     /** ComponentDidMount */
@@ -79,7 +73,7 @@ export class Block<
   _addEvents() {
     const { events = {} } = this.props;
 
-    Object.keys(events).forEach((eventName) => {
+    Object.keys(events).forEach(eventName => {
       this._element?.addEventListener(eventName, events[eventName]);
     });
   }
@@ -88,7 +82,7 @@ export class Block<
   _removeEvents() {
     const { events = {} } = this.props;
 
-    Object.keys(events).forEach((eventName) => {
+    Object.keys(events).forEach(eventName => {
       this._element?.removeEventListener(eventName, events[eventName]);
     });
   }
@@ -96,10 +90,7 @@ export class Block<
   _registerEvents(eventBus: EventBus) {
     eventBus.on(Block.EVENTS.INIT, this._init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
-    eventBus.on(
-      Block.EVENTS.FLOW_CDU,
-      this._componentDidUpdate.bind(this) as Listener<unknown[]>
-    );
+    eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this) as Listener<unknown[]>);
     eventBus.on(Block.EVENTS.FLOW_CWU, this._componentWillUnmount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
   }
@@ -110,7 +101,8 @@ export class Block<
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
-  protected init() {}
+  protected init() {
+  }
 
   // #region CDU
   public dispatchComponentDidUpdate() {
@@ -118,7 +110,8 @@ export class Block<
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  componentDidUpdate(_oldProps: Tprops, _newProps: Tprops) {}
+  componentDidUpdate(_oldProps: Tprops, _newProps: Tprops) {
+  }
 
   private _componentDidUpdate(oldProps: Tprops, newProps: Tprops) {
     if (this.componentShouldUpdate(oldProps, newProps)) {
@@ -140,28 +133,27 @@ export class Block<
     this.componentDidMount();
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+  }
   // #endregion CDM
 
   // #region CWU
   public dispatchComponentWillUnmount() {
     this.eventBus().emit(Block.EVENTS.FLOW_CWU);
-    Object.values(this.children).forEach((child) =>
-      (child as Block).dispatchComponentWillUnmount()
-    );
+    Object.values(this.children).forEach(child => (child as Block).dispatchComponentWillUnmount());
   }
 
   _componentWillUnmount() {
     this.componentWillUnmount();
+    this._removeEvents();
   }
 
-  componentWillUnmount() {}
+  componentWillUnmount() {
+
+  }
   // #endregion CWU
 
-  protected componentShouldUpdate(
-    oldProps: Record<string, unknown>,
-    _newProps: Record<string, unknown>
-  ) {
+  protected componentShouldUpdate(oldProps: Record<string, unknown>, _newProps: Record<string, unknown>) {
     return oldProps !== _newProps;
   }
 
@@ -192,14 +184,8 @@ export class Block<
     this._addEvents();
   }
 
-  private compile(
-    template: HandlebarsTemplateDelegate,
-    context: BlockPropsType
-  ) {
-    const contextAndStubs: ContextAndStubsType = {
-      ...context,
-      __refs: this.refs,
-    };
+  private compile(template: HandlebarsTemplateDelegate, context: BlockPropsType) {
+    const contextAndStubs: ContextAndStubsType = { ...context, __refs: this.refs };
 
     const html = template(contextAndStubs);
 
@@ -208,14 +194,12 @@ export class Block<
     temp.innerHTML = html;
 
     if (contextAndStubs.__children?.length) {
-      this.children = contextAndStubs.__children.map((x) => x.component);
+      this.children = contextAndStubs.__children.map(x => x.component);
     }
 
-    contextAndStubs.__children?.forEach(
-      ({ embed }: Pick<RootChildren, "embed">) => {
-        embed(temp.content, this._isMounted);
-      }
-    );
+    contextAndStubs.__children?.forEach(({ embed }: Pick<RootChildren, "embed">) => {
+      embed(temp.content, this._isMounted);
+    });
 
     return temp.content;
   }
@@ -228,9 +212,7 @@ export class Block<
     // Хак, чтобы вызвать CDM только после добавления в DOM
     if (this.element?.parentNode?.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
       setTimeout(() => {
-        if (
-          this.element?.parentNode?.nodeType !== Node.DOCUMENT_FRAGMENT_NODE
-        ) {
+        if (this.element?.parentNode?.nodeType !== Node.DOCUMENT_FRAGMENT_NODE) {
           if (isMounted) {
             this.componentDidUpdate(this._prevProps, this.props);
           } else {
